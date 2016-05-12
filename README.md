@@ -1,6 +1,6 @@
 # garagepi
 
-This is an nodeJS application that runs on a Raspberry PI.  It uses the Express module to serve a single page application (SPA) and APIs that display the garage door status, history of the door being in the open position, a still picture from the camera, as well as controls to open and close the garage door.
+This is a nodeJS application that runs on a Raspberry PI to control a garage door opener.  It uses the Express module to serve a single page application (SPA) and APIs that display the garage door status, history of the door being in the open position, a still picture from the camera, as well as controls to open and close the garage door.
 
 The application displays the Raspberry PI CPU temp, as well as the ambient temp.  Web sockets are used to update the browser when the garage door changes position (open/close) as sensed by the door sensor.
 
@@ -52,6 +52,7 @@ Supplies for connecting and housing:
 * Stand-off screws and nuts for mounting.
 * Micro-usb cable and charger for power.
 * Ethernet cable for wire runs from relays to garage door opener and door sensor.
+* Breadboard female to female and female to male jumper wire.
  
 I originally had this mounted right next to the garage door opener, but discovered that it interfered with the wireless operation of the garage door remotes.  Relocating it to the back wall of the garage, and mounting it with the sheet metal out solved the interference problem.
 
@@ -72,4 +73,5 @@ To Do:
 * Terminate HTTPS at the Raspberry Pi to reduce complexity of setup.
 * Move hard-coded values into configuration, such as tempurature sensor ID and GPIO pins used.
 * Clean-up dependencies.
-* More detailed instructions on installation and setup.
+* More detailed instructions on installation of OS, this and dependencies, networking, and wiring.
+* Add support for second garage door.
