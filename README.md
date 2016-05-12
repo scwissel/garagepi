@@ -4,7 +4,10 @@ This is a nodeJS application that runs on a Raspberry PI to control a garage doo
 
 The application displays the Raspberry PI CPU temp, as well as the ambient temp.  Web sockets are used to update the browser when the garage door changes position (open/close) as sensed by the door sensor.
 
-The application is secured with BASIC authentication, so it is highly recommended to use HTTPS.  In my implementation, HTTPS is terminated in NGINX, with a forward to the Raspberry Pi, which is listening on socket 3000.
+## Networking
+I have my home router configured to update a dynamic DNS service, so I can use a regular domain name instead of remembering my public IP address to access the web app.  My router then forwards to an NGINX server, which then forwards to the Raspberry Pi running the node application.
+
+The application is secured with BASIC authentication (update username and password in config.json), so it is highly recommended to use HTTPS.  In my implementation, HTTPS is terminated in NGINX, with a forward to the Raspberry Pi, which is listening on socket 3000.
 
 The following is a sample NGINX configuration that uses a self signed certificate and performs a proxy_pass to the Pi.  My internal DNS has garagepi and nginxservernamehere defined.  WWW traffic is sent to the /garagepi/ path, and web socket traffic is sent to /garagews/.
 
@@ -36,6 +39,7 @@ server {
 }
 ```
 
+## Parts
 The following hardware is suggested:
 
 * Raspberry PI with Raspbian and node installed.
@@ -54,7 +58,8 @@ Supplies for connecting and housing:
 * Ethernet cable for wire runs from relays to garage door opener and door sensor.
 * Breadboard female to female and female to male jumper wire.
 * Uxcell (orange) UY butt splice connectors.
- 
+
+## Tips 
 I originally had this mounted right next to the garage door opener, but discovered that it interfered with the wireless operation of the garage door remotes.  Relocating it to the back wall of the garage, and mounting it with the sheet metal out solved the interference problem.
 
 |Finished project, mounted on garage wall|Components|Camera|Door Sensor|
