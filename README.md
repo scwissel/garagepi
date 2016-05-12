@@ -75,7 +75,7 @@ I originally had this mounted right next to the garage door opener, but discover
 |---|---|---|---|
 |![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWMain.png "Main Page")|![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWControl.png "Control")|![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWMenu.png "Menu")|![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWLog.png "Log")|
 
-To Do:
+##To Do
 
 * Terminate HTTPS at the Raspberry Pi to reduce complexity of setup.
 * Move hard-coded values into configuration, such as tempurature sensor ID and GPIO pins used.
