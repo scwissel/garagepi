@@ -1,6 +1,40 @@
 # garagepi
 
-This is an nodeJS application that runs on a Raspberry PI.
+This is an nodeJS application that runs on a Raspberry PI.  It uses the Express module to serve a single page application (SPA) and APIs that display the garage door status, history of the door being in the open position, a still picture from the camera, as well as controls to open and close the garage door.
+
+The application displays the Raspberry PI CPU temp, as well as the ambient temp.  Web sockets are used to update the browser when the garage door changes position (open/close) as sensed by the door sensor.
+
+The application is secured with BASIC authentication, so it is highly recommended to use HTTPS.  In my implementation, HTTPS is terminated in NGINX, with a forward to the Raspberry Pi, which is listening on socket 3000.
+
+The following is a sample NGINX configuration that uses a self signed certificate and performs a proxy_pass to the Pi.  My internal DNS has garagepi and nginxservernamehere defined.  WWW traffic is sent to the /garagepi/ path, and web socket traffic is sent to /garagews/.
+
+```
+upstream garagepilogical {
+        server garagepi:3000;
+}
+
+server {
+        listen 8443 ssl;
+        server_name nginxservernamehere;
+        ssl_certificate cert.pem;
+        ssl_certificate_key cert.key;
+        ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers "HIGH:!aNULL:!MD5 or HIGH:!aNULL:!MD5:!3DES";
+        ssl_prefer_server_ciphers on;
+        location /garagepi/ {
+                proxy_pass http://garagepilogical/;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection $connection_upgrade;
+        }
+        location /garagews/ {
+                proxy_pass http://garagepilogical/garagews/;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection $connection_upgrade;
+        }
+}
+```
 
 The following hardware is suggested:
 
@@ -30,3 +64,10 @@ Supplies for connecting and housing:
 |Main Page|Control|Menu|Door Open Log|
 |---|---|---|---|
 |![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWMain.png "Main Page")|![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWControl.png "Control")|![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWMenu.png "Menu")|![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWLog.png "Log")|
+
+To Do:
+
+* Terminate HTTPS at the Raspberry Pi to reduce complexity of setup.
+* Move hard-coded values into configuration, such as tempurature sensor ID and GPIO pins used.
+* Clean-up dependencies.
+* More detailed instructions on installation and setup.
