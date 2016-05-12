@@ -62,6 +62,7 @@ Supplies for connecting and housing:
 ## Tips 
 I originally had this mounted right next to the garage door opener, but discovered that it interfered with the wireless operation of the garage door remotes.  Relocating it to the back wall of the garage, and mounting it with the sheet metal out solved the interference problem.
 
+## Pictures
 |Finished project, mounted on garage wall|Components|Camera|Door Sensor|
 |---|---|---|---|
 |![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiMounted.jpg "Garage Pi Mounted")|![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiComponents.jpg "Garage Pi Components")|![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiCamera.jpg "Garage Pi Camera")|![alt text](https://github.com/scwissel/garagepi/raw/master/docs/DoorSensor.jpg "Door Sensor")|
