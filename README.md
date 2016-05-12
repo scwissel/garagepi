@@ -53,6 +53,7 @@ Supplies for connecting and housing:
 * Micro-usb cable and charger for power.
 * Ethernet cable for wire runs from relays to garage door opener and door sensor.
 * Breadboard female to female and female to male jumper wire.
+* Uxcell (orange) UY butt splice connectors.
  
 I originally had this mounted right next to the garage door opener, but discovered that it interfered with the wireless operation of the garage door remotes.  Relocating it to the back wall of the garage, and mounting it with the sheet metal out solved the interference problem.
 
