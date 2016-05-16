@@ -50,6 +50,8 @@ The following hardware is suggested:
 * 4.7k resistor (for DS18B20)
 * Magnetic door/window switch, as used in home security systems.
 
+![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePi_bb.png "Garage Pi Breadboard View")
+
 Supplies for connecting and housing:
 
 * Sheet metal.
