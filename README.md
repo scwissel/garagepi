@@ -233,7 +233,7 @@ sudo apt-get install npm git
 ```
 
 ###Setup GaragePi
-Grab garagepi from git using ```git clone https://github.com/scwissel/garagepi.git garagepi```.
+Grab garagepi from git using ```git clone https://github.com/scwissel/garagepi.git garagepi```.  Go into the garagepi folder and run ```npm install``` to install and dependent node packages.
 
 Make sure to update the following:
 
