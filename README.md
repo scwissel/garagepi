@@ -77,6 +77,38 @@ I originally had this mounted right next to the garage door opener, but discover
 |---|---|---|---|
 |![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWMain.png "Main Page")|![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWControl.png "Control")|![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWMenu.png "Menu")|![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWLog.png "Log")|
 
+##Steps
+
+###Install Raspbian
+
+###Setup Raspbian for OneWire Support
+Raspbian includes support for the OneWire bus used by the DS18B20 temperature sensor.  Here's how to enable it.
+
+Add ```dtoverlay=w1-gpio``` to the /boot/config.txt.
+
+Reboot with ```sudo reboot```.
+
+With the sensor connected to GPIO 4, confirm it is recognized by going to the w1 devices folder, seeing a device listed starting with 28 (usually), and checking the w1_slave file for a reading.  My ID was 28-01156206bdff, so yours will be different.
+
+```
+pi@garagepi ~ $ cd /sys/bus/w1/devices
+pi@garagepi /sys/bus/w1/devices $ ls
+28-01156206bdff  w1_bus_master1
+pi@garagepi /sys/bus/w1/devices $ cd 28-01156206bdff
+pi@garagepi /sys/bus/w1/devices/28-01156206bdff $ cat w1_slave 
+70 01 80 80 1f ff 80 80 7a : crc=7a YES
+70 01 80 80 1f ff 80 80 7a t=23000
+pi@garagepi /sys/bus/w1/devices/28-01156206bdff $
+```
+
+Make sure to update the garageapi.js file to have your ID.  (NOTE: in the future this setting should be moved into config.js)
+
+```
+// read ambient temp
+setInterval(function(){
+  ambtemp = utils.w1Temp('28-01156206bdff');
+}, 5000);
+```
 ##To Do
 
 * Terminate HTTPS at the Raspberry Pi to reduce complexity of setup.
