@@ -81,10 +81,12 @@ I originally had this mounted right next to the garage door opener, but discover
 These steps include terminal commands, so a basic knowledge of using SSH is required.  PuTTY is a great terminal emulator for Windows.  Linux and Mac have ssh built in.  Getting familiar with ```vi``` or ```nano``` to edit files in a shell is also needed.  Prefixing commands with ```sudo``` will elevate your access to run and edit files that require root permissions.  More info can be found [here](https://www.raspberrypi.org/documentation/linux/usage/root.md).
 
 ###Install Raspbian
+
+####Download
 [Raspbian](https://www.raspbian.org/) can be downloaded from the [Raspberry Pi Foundation](https://www.raspberrypi.org/downloads/raspbian/) site.  The most up to date instructions for downloading and installing on a SD card are found there.  Go with the "lite" version of Raspbian, without the full desktop.
 
+####Image SD Card
 Steps in a nutshell on a Mac:
-
 * Download zip file of Raspbian image.
 * Pop in SD card into a Mac and open Terminal.
 * ```cd Downloads```
@@ -92,14 +94,31 @@ Steps in a nutshell on a Mac:
 * ```diskutil list``` to get the disk number of the SD card (ex: the number 2 in /dev/disk2)
 * ```sudo dd bs=1m if=2016-05-10-raspbian-jessie-lite.img of=/dev/rdisk2``` replace image file name and your disk number.  NOTE "rdisk" here and not just "disk"!
 * ```sudo diskutil eject /dev/rdisk2``` replace your disk number
-* Remove your SD card and insert card into Raspberry Pi.
 
-Plug the Raspberry Pi to ethernet, or jump to the Setup WiFi section to get your Raspberry Pi on the network.
+####Boot Up 
+Steps to Getting Raspbian Up:
+* Remove your SD card from your computer and insert card into Raspberry Pi.
+* You can plug in your USB WiFi adapter at this time.
+* Plug the Raspberry Pi into Ethernet and power.
+* Optionally plug into a monitor/TV and keyboard.  You can proceed headless, but need an ethernet cable attached.
+* Raspbian will automatically boot up and resize the filesystem to fill the SD card and is ready to SSH into.
+ 
+####Get Online
+Remote Access to Raspberry Pi (ssh)
+* Perform the Setup WiFi steps if you don't have an ethernet cable attached, so you have internet access from the Pi.
+* Get your Raspberry Pi IP Address
+  * If you have a monitor/TV hooked up and ethernet attached, it will log "My IP address is ..." about 20 lines up from the login prompt.
+  * Go to your router admin page to see what the IP address became.
+  * Login with monitor/TV and keyboard attached and run ```ifconfig``` to find ```inet addr```.
+* ```ssh pi@192.168.1.20``` replacing with your Raspberry Pi IP address.  Password is ```raspberry``` by default.
+* Raspbian user information is documented on the [Raspbian site](https://www.raspberrypi.org/documentation/linux/usage/users.md).  Changing the password is probably a good idea, since this device will be controlling your garage door.
+* Either via Ethernet or WiFi, the Raspberry Pi needs to be on a network and connected to the internet at this point.
 
-Make sure Raspbian is all up to date.
+####Apply Updates
+Make sure Raspbian is all up to date.  This could take some time to finish.
 ```
-sudo apt-update
-sudo apt-upgrade
+sudo apt-get update
+sudo apt-get upgrade
 ```
 
 And the Raspberry Pi firmware is up to date.
@@ -108,12 +127,6 @@ sudo rpi-update
 ```
 
 If rpi-update is not installed, install it with ```sudo apt-get install rpi-update```.
-
-You probably have your Raspberry Pi connected to a monitor.  Ultimately, you need to go headless and to do that you need to keep the Raspberry Pi connected to your network.  Setting up WiFi makes this easier, so the only connection needed is power.
-
-To access your Raspberry Pi on the network via secure shell (ssh), you'll need to get the IP address.  You can use the ```ifconfig``` command to list the network interfaces, which will include the IP address as ```inet addr```.  Knowing the IP address, you can now use PuTTY or a secure shell client from another machine to access the Raspberry Pi.
-
-The default login for Raspbian is ```pi/raspberry```, as documented on the [Raspbian site](https://www.raspberrypi.org/documentation/linux/usage/users.md).  Changing the password is probably a good idea, since this device will be controlling your garage door.
 
 ###Setup WiFi
 This is probably one of the first things you'll want to do so you can SSH into the Pi.  Plug in the wireless USB adapter to get started.  Instructions can be found [here](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md), but here's the gist of it.
