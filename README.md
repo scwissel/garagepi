@@ -195,7 +195,7 @@ With the reed switch connected to GPIO15 and a ground pin, here's how to test th
 
 To set GPIO15 as an input pin, use ```gpio -g mode 15 in```.
 
-To read the state of GPIO15, use ```gpio -g read 15```.  An output of ```0``` means the door is closed, ```1``` means the door is open.  This is the case for a "normally closed" reed switch.  In other words, when the magnet is away from the reed switch, the connection is closed (pin 15 is grounded).  When the magnet is near the reed switch, the connection opens.
+To read the state of GPIO15, use ```gpio -g read 15```.  An output of ```0``` means the door is closed, ```1``` means the door is open.
 
 ###Setup the Garage Door Button Relay
 With the relay connected to GPIO2, 5 volt and ground pins, we can use the ```gpio``` command-line to test the operation.
