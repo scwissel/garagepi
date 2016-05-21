@@ -102,7 +102,7 @@ You probably have your Raspberry Pi connected to a monitor.  Ultimately, you nee
 
 To access your Raspberry Pi on the network via secure shell (ssh), you'll need to get the IP address.  You can use the ```ifconfig``` command to list the network interfaces, which will include the IP address as ```inet addr```.  Knowing the IP address, you can now use PuTTY or a secure shell client from another machine to access the Raspberry Pi.
 
-The default login for Raspbian is ```pi/raspbian```, as documented on the [Raspbian site](https://www.raspberrypi.org/documentation/linux/usage/users.md).  Changing the password is probably a good idea, since this device will be controlling your garage door.
+The default login for Raspbian is ```pi/raspberry```, as documented on the [Raspbian site](https://www.raspberrypi.org/documentation/linux/usage/users.md).  Changing the password is probably a good idea, since this device will be controlling your garage door.
 
 ###Setup WiFi
 This is probably one of the first things you'll want to do so you can SSH into the Pi.  Instructions can be found [here](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md), but here's the core of it.
@@ -148,6 +148,43 @@ setInterval(function(){
   ambtemp = utils.w1Temp('28-01156206bdff');
 }, 5000);
 ```
+
+###Setup Camera
+Use ```raspi-config``` to enable the camera.  [More info](https://www.raspberrypi.org/documentation/configuration/camera.md)
+
+###Setup Garage Door Position Sensor
+With the reed switch connected to GPIO15 and a ground pin, here's how to test the operation.  ```gpio``` is a command-line utility that we'll use to test.
+
+To set GPIO15 as an input pin, use ```gpio -g mode 15 in```.
+
+To read the state of GPIO15, use ```gpio -g read 15```.  An output of ```0``` means the door is closed, ```1``` means the door is open.  This is the case for a "normally closed" reed switch.  In other words, when the magnet is away from the reed switch, the connection is closed (pin 15 is grounded).  When the magnet is near the reed switch, the connection opens.
+
+###Setup the Garage Door Button Relay
+With the relay connected to GPIO2, 5 volt and ground pins, we can use the ```gpio``` command-line to test the operation.
+
+To set GPIO2 as an output pin, use ```gpio -g mode 2 out```.
+
+To close the relay, we need to set the value to zero with ```gpio -g write 2 1```.
+
+To open the relay, we need to set the value to one with ```gpio -g write 2 0```.
+
+To simulate a button press where the relay closes for 250ms, the following script can be used as a test:
+
+```
+#!/bin/bash
+gpio -g mode 2 out
+gpio -g write 2 1
+sleep .25
+gpio -g write 2 0
+```
+
+###Install Dependencies
+The following will install the other dependencies needed.
+
+```
+sudo apt-get install nodejs npm
+```
+
 ##To Do
 
 * Terminate HTTPS at the Raspberry Pi to reduce complexity of setup.
