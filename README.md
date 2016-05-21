@@ -232,6 +232,18 @@ These are also needed.
 sudo apt-get install npm git
 ```
 
+####Install GPIO-Admin
+[gpio-admin](https://github.com/quick2wire/quick2wire-gpio-admin) allows for non-root access to the GPIO pins, and is a dependency for the NPM package pi-gpio.
+
+Here's the commands to download, build and install:
+```
+git clone git://github.com/quick2wire/quick2wire-gpio-admin.git
+cd quick2wire-gpio-admin
+make
+sudo make install
+sudo adduser $USER gpio
+```
+
 ###Setup GaragePi
 Grab garagepi from git using ```git clone https://github.com/scwissel/garagepi.git garagepi```.  Go into the garagepi folder and run ```npm install``` to install and dependent node packages.
 
