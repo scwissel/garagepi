@@ -102,6 +102,9 @@ Steps to Getting Raspbian Up:
 * Plug the Raspberry Pi into Ethernet and power.
 * Optionally plug into a monitor/TV and keyboard.  You can proceed headless, but need an ethernet cable attached.
 * Raspbian will automatically boot up and resize the filesystem to fill the SD card and is ready to SSH into.
+
+####General Troubleshooting
+To check system logs, you can type ```dmesg``` to dump kernel and driver log messages when looking into issues.  This can help with checking on the USB WiFi interface.
  
 ####Get Online
 Remote Access to Raspberry Pi (ssh)
@@ -147,7 +150,7 @@ network={
 }
 ```
 
-It should notice the file changed and try to connect to your router.
+It should notice the file changed and try to connect to your router, if you do not have enthernet connected.  Your best bet is to do a reboot (```sudo reboot```) at this point and unplug the ethernet cable before it boots up.  The IP address would have now changed, since it is now using WiFi instead of ethernet.
 
 ###Setup Raspbian for OneWire Support
 Raspbian includes support for the OneWire bus used by the DS18B20 temperature sensor.  Here's how to enable it.
