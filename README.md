@@ -78,10 +78,12 @@ I originally had this mounted right next to the garage door opener, but discover
 |![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWMain.png "Main Page")|![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWControl.png "Control")|![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWMenu.png "Menu")|![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWLog.png "Log")|
 
 ##Steps
-These steps include terminal commands, so a basic knowledge of using SSH is required.  PuTTY is a great terminal emulator for Windows.  Linux and Mac have ssh built in.
+These steps include terminal commands, so a basic knowledge of using SSH is required.  PuTTY is a great terminal emulator for Windows.  Linux and Mac have ssh built in.  Getting familiar with ```vi``` or ```nano``` to edit files in a shell is also needed.  Prefixing commands with ```sudo``` will elevate your access to run and edit files that require root permissions.  More info can be found [here](https://www.raspberrypi.org/documentation/linux/usage/root.md).
 
 ###Install Raspbian
 [Raspbian](https://www.raspbian.org/) can be downloaded from the [Raspberry Pi Foundation](https://www.raspberrypi.org/downloads/raspbian/) site.  The most up to date instructions for downloading and installing on a SD card are found there.
+
+Plug the Raspberry Pi to ethernet, or jump to the Setup WiFi section to get your Raspberry Pi on the network.
 
 Make sure Raspbian is all up to date.
 ```
@@ -95,6 +97,12 @@ sudo rpi-update
 ```
 
 If rpi-update is not installed, install it with ```sudo apt-get install rpi-update```.
+
+You probably have your Raspberry Pi connected to a monitor.  Ultimately, you need to go headless and to do that you need to just need to keep the Raspberry Pi connected to your network.  Setting up WiFi makes this easier, so the only connection needed is to power.
+
+To access your Raspberry Pi on the network via secure shell (ssh), you'll need to get the IP address.  You can use the ```ifconfig``` command to list the network interfaces, which will include the IP address as ```inet addr```.  Knowing the IP address, you can now use PuTTY or a secure shell client from another machine to access the Raspberry Pi.
+
+The default login for Raspbian is ```pi/raspbian```, as documented on the [Raspbian site](https://www.raspberrypi.org/documentation/linux/usage/users.md).  Changing the password is probably a good idea, since this device will be controlling your garage door.
 
 ###Setup WiFi
 This is probably one of the first things you'll want to do so you can SSH into the Pi.  Instructions can be found [here](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md), but here's the core of it.
