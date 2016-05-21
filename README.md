@@ -55,11 +55,11 @@ The following hardware is suggested:
 Supplies for connecting and housing:
 
 * Sheet metal.
-* Stand-off screws and nuts for mounting.
+* Stand-off screws and nuts for mounting. [M3 Standoff Spacers w/ Nuts](http://amzn.com/B00GWF32MU)  [M3 Screws](http://amzn.com/B00032Q1J4)
 * Micro-usb cable and charger for power.
 * Ethernet cable for wire runs from relays to garage door opener and door sensor.
-* Breadboard female to female and female to male jumper wire.
-* Uxcell (orange) UY butt splice connectors.
+* Breadboard [female to female and female to male jumper wire](http://amzn.com/B017NEGTXC).
+* Uxcell (orange) [UY butt splice connectors](http://amzn.com/B00H8R5KRG).
 
 ## Tips 
 I originally had this mounted right next to the garage door opener, but discovered that it interfered with the wireless operation of the garage door remotes.  Relocating it to the back wall of the garage, and mounting it with the sheet metal out solved the interference problem.
