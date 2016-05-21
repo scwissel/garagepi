@@ -81,7 +81,18 @@ I originally had this mounted right next to the garage door opener, but discover
 These steps include terminal commands, so a basic knowledge of using SSH is required.  PuTTY is a great terminal emulator for Windows.  Linux and Mac have ssh built in.  Getting familiar with ```vi``` or ```nano``` to edit files in a shell is also needed.  Prefixing commands with ```sudo``` will elevate your access to run and edit files that require root permissions.  More info can be found [here](https://www.raspberrypi.org/documentation/linux/usage/root.md).
 
 ###Install Raspbian
-[Raspbian](https://www.raspbian.org/) can be downloaded from the [Raspberry Pi Foundation](https://www.raspberrypi.org/downloads/raspbian/) site.  The most up to date instructions for downloading and installing on a SD card are found there.
+[Raspbian](https://www.raspbian.org/) can be downloaded from the [Raspberry Pi Foundation](https://www.raspberrypi.org/downloads/raspbian/) site.  The most up to date instructions for downloading and installing on a SD card are found there.  Go with the "lite" version of Raspbian, without the full desktop.
+
+Steps in a nutshell on a Mac:
+
+* Download zip file of Raspbian image.
+* Pop in SD card into a Mac and open Terminal.
+* ```cd Downloads```
+* ```unzip 2016-05-10-raspbian-jessie-lite.zip``` replace with the latest image zip file name you just downloaded.
+* ```diskutil list``` to get the disk number of the SD card (ex: the number 2 in /dev/disk2)
+* ```sudo dd bs=1m if=2016-05-10-raspbian-jessie-lite.img of=/dev/rdisk2``` replace image file name and your disk number.  NOTE "rdisk" here and not just "disk"!
+* ```sudo diskutil eject /dev/rdisk2``` replace your disk number
+* Remove your SD card and insert card into Raspberry Pi.
 
 Plug the Raspberry Pi to ethernet, or jump to the Setup WiFi section to get your Raspberry Pi on the network.
 
