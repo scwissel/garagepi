@@ -128,6 +128,11 @@ sudo rpi-update
 
 If rpi-update is not installed, install it with ```sudo apt-get install rpi-update```.
 
+It is probably best to reboot at this point.
+```
+sudo reboot
+```
+
 ###Setup WiFi
 This is probably one of the first things you'll want to do so you can SSH into the Pi.  Plug in the wireless USB adapter to get started.  Instructions can be found [here](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md), but here's the gist of it.
 
