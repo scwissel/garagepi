@@ -98,16 +98,16 @@ sudo rpi-update
 
 If rpi-update is not installed, install it with ```sudo apt-get install rpi-update```.
 
-You probably have your Raspberry Pi connected to a monitor.  Ultimately, you need to go headless and to do that you need to just need to keep the Raspberry Pi connected to your network.  Setting up WiFi makes this easier, so the only connection needed is to power.
+You probably have your Raspberry Pi connected to a monitor.  Ultimately, you need to go headless and to do that you need to keep the Raspberry Pi connected to your network.  Setting up WiFi makes this easier, so the only connection needed is power.
 
 To access your Raspberry Pi on the network via secure shell (ssh), you'll need to get the IP address.  You can use the ```ifconfig``` command to list the network interfaces, which will include the IP address as ```inet addr```.  Knowing the IP address, you can now use PuTTY or a secure shell client from another machine to access the Raspberry Pi.
 
 The default login for Raspbian is ```pi/raspberry```, as documented on the [Raspbian site](https://www.raspberrypi.org/documentation/linux/usage/users.md).  Changing the password is probably a good idea, since this device will be controlling your garage door.
 
 ###Setup WiFi
-This is probably one of the first things you'll want to do so you can SSH into the Pi.  Instructions can be found [here](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md), but here's the core of it.
+This is probably one of the first things you'll want to do so you can SSH into the Pi.  Plug in the wireless USB adapter to get started.  Instructions can be found [here](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md), but here's the gist of it.
 
-You can scan for WiFi networks using ```sudo iwlist wlan0 scan```.  You need to know your routers SSID and password.  This should work for WPA and WPA2.
+You can scan for WiFi networks using ```sudo iwlist wlan0 scan```.  This is an easy way to make sure the adapter is recognized and working.  To get connected, you need to know your routers SSID and password.  This should work for both WPA and WPA2 security.
 
 Add the following to the bottom of the ```/etc/wpa_supplicant/wpa_supplicant.conf``` file.  In order to get permissions, you'll have to ```sudo vi /etc/wpa_supplicant/wpa_supplicant.conf```.
 
