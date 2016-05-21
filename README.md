@@ -179,11 +179,23 @@ gpio -g write 2 0
 ```
 
 ###Install Dependencies
-The following will install the other dependencies needed.
+The following will install the other dependencies needed.  npm, Node.js and git are needed.
 
 ```
-sudo apt-get install nodejs npm
+sudo apt-get install nodejs npm git
 ```
+
+###Setup GaragePi
+Grab garagepi from git using ```git clone https://github.com/scwissel/garagepi.git garagepi```.
+
+Make sure to update the following:
+
+* Temp sensor ID for your DS18B20 in garageapi.js.
+* Your chosen username and password in config.js.
+
+Start garagepi with ```node garageapi.js```.
+
+Access the web application by browsing to the IP address of your Raspberry Pi on port 3000.  For example, if your Raspberry Pi has an IP address of 192.168.1.10, then use the following in your laptop or PC browser while connected to the same WiFi network as the Raspberry Pi: ```http://192.168.1.10:3000```.  You should get prompted to login with your username and password you setup in config.js and see the main page.
 
 ##To Do
 
