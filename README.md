@@ -217,10 +217,19 @@ gpio -g write 2 0
 ```
 
 ###Install Dependencies
-The following will install the other dependencies needed.  npm, Node.js and git are needed.
+The following will install the other dependencies needed.
 
+####Install node
+Node can be installled from the default repositories, but it is older and runs by the command ```nodejs```, which is bothersome.  This needs to be improved to install the latest node and is a bit of a mess right now, but these instructions get you going.
 ```
-sudo apt-get install nodejs npm git
+curl -sLS https://apt.adafruit.com/add | sudo bash
+sudo apt-get install node
+```
+
+####Install NPM and Git
+These are also needed.
+```
+sudo apt-get install npm git
 ```
 
 ###Setup GaragePi
