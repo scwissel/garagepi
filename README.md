@@ -43,12 +43,12 @@ server {
 The following hardware is suggested:
 
 * Raspberry PI with Raspbian and node installed.
-* WiFi Module for connectivity.
-* Raspberry PI/Arduino friendly relay module.
+* WiFi Module for connectivity.  [EdiMax EW-7811Un](http://amzn.com/B003MTTJOY).
+* Raspberry PI/Arduino friendly relay module.  [SunFounder 5V Relay Shield Module for Arduino](http://amzn.com/B00E0NTPP4).
 * Raspberry PI Camera module.
 * DS18B20 1-wire thermometer sensor.
 * 4.7k resistor (for DS18B20)
-* Magnetic door/window switch, as used in home security systems.
+* Magnetic door/window switch.  [uxcell® MC 38 Wired Door Window Sensor Magnetic Switch](http://amzn.com/B00HR8CT8E).
 
 ![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePi_bb.png "Garage Pi Breadboard View")
 
@@ -78,8 +78,39 @@ I originally had this mounted right next to the garage door opener, but discover
 |![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWMain.png "Main Page")|![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWControl.png "Control")|![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWMenu.png "Menu")|![alt text](https://github.com/scwissel/garagepi/raw/master/docs/GaragePiWWWLog.png "Log")|
 
 ##Steps
+These steps include terminal commands, so a basic knowledge of using SSH is required.  PuTTY is a great terminal emulator for Windows.  Linux and Mac have ssh built in.
 
 ###Install Raspbian
+[Raspbian](https://www.raspbian.org/) can be downloaded from the [Raspberry Pi Foundation](https://www.raspberrypi.org/downloads/raspbian/) site.  The most up to date instructions for downloading and installing on a SD card are found there.
+
+Make sure Raspbian is all up to date.
+```
+sudo apt-update
+sudo apt-upgrade
+```
+
+And the Raspberry Pi firmware is up to date.
+```
+sudo rpi-update
+```
+
+If rpi-update is not installed, install it with ```sudo apt-get install rpi-update```.
+
+###Setup WiFi
+This is probably one of the first things you'll want to do so you can SSH into the Pi.  Instructions can be found [here](https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md), but here's the core of it.
+
+You can scan for WiFi networks using ```sudo iwlist wlan0 scan```.  You need to know your routers SSID and password.  This should work for WPA and WPA2.
+
+Add the following to the bottom of the ```/etc/wpa_supplicant/wpa_supplicant.conf``` file.  In order to get permissions, you'll have to ```sudo vi /etc/wpa_supplicant/wpa_supplicant.conf```.
+
+```
+network={
+    ssid="YourRouterSSID"
+    psk="YourRouterPassword"
+}
+```
+
+It should notice the file changed and try to connect to your router.
 
 ###Setup Raspbian for OneWire Support
 Raspbian includes support for the OneWire bus used by the DS18B20 temperature sensor.  Here's how to enable it.
