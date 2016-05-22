@@ -221,15 +221,17 @@ The following will install the other dependencies needed.
 
 ####Install node
 Node can be installled from the default repositories, but it is older and runs by the command ```nodejs```, which is bothersome.  This needs to be improved to install the latest node and is a bit of a mess right now, but these instructions get you going.
+
+Go to ```https://nodejs.org/download/release/latest/``` and find the tar.gz file for ARMv6.  Here are the commands for the latest at the time of writing this.
 ```
-curl -sLS https://apt.adafruit.com/add | sudo bash
-sudo apt-get install node
+wget https://nodejs.org/download/release/latest/node-v6.2.0-linux-armv6l.tar.gz
+sudo tar xf node-v6.2.0-linux-armv6l.tar.gz --strip-components=1 -C /usr/local
 ```
 
-####Install NPM and Git
-These are also needed.
+####Install Git
+Git will also be needed.
 ```
-sudo apt-get install npm git
+sudo apt-get install git
 ```
 
 ####Install GPIO-Admin
