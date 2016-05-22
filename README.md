@@ -181,14 +181,15 @@ setInterval(function(){
 }, 5000);
 ```
 
-###Setup Camera
-Use ```raspi-config``` to enable the camera.  [More info](https://www.raspberrypi.org/documentation/configuration/camera.md)
+###Setup Camera and Set TimeZone
+Use ```sudo raspi-config``` to enable the camera and timezone.  A menu will come up where you will see the options.  It is pretty straight forward, but check [camera more info](https://www.raspberrypi.org/documentation/configuration/camera.md) and [timezone more info](https://www.raspberrypi.org/documentation/configuration/raspi-config.md).
 
 ###Setup WiringPi
 [WiringPi](http://wiringpi.com/) is a command-line utility to operate the GPIO pins.  It will be used to check the position of the garage door and operate the relay for the garage door opener.  Install it as follows.
 ```
 sudo apt-get install wiringpi
 ```
+NOTE:  this may be optional, as it appears the wiring-pi node module builds and installs this too.
 
 ###Setup Garage Door Position Sensor
 With the reed switch connected to GPIO15 and a ground pin, here's how to test the operation.  ```gpio``` is a command-line utility that we'll use to test.
