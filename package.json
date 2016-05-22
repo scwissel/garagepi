@@ -1,0 +1,32 @@
+{
+  "name": "garagepi",
+  "version": "1.0.0",
+  "description": "This is a nodeJS application that runs on a Raspberry PI to control a garage door opener.  It uses the Express module to serve a single page application (SPA) and APIs that display the garage door status, history of the door being in the open position, a still picture from the camera, as well as controls to open and close the garage door.",
+  "main": "garageapi.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "basic-auth": "^1.0.4",
+    "express": "^4.13.4",
+    "morgan": "^1.7.0",
+    "pi-gpio": "0.0.8",
+    "socket.io": "^1.4.6",
+    "sqlite3": "^3.1.4",
+    "wiring-pi": "^2.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scwissel/garagepi.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scwissel/garagepi/issues"
+  },
+  "homepage": "https://github.com/scwissel/garagepi#readme"
+}
