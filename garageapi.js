@@ -35,26 +35,32 @@ garagedb.readlatestlog(function(err,recs) {
 console.log('initializing garage door');
 garagedoor.init();
 
-// initialize camera
-console.log('initializing camera');
-camera.init('/home/pi/apps/www/images');
 
-// take pictures
-setInterval(function(){
-  camera.takepicture();
-}, 10000);
+if (config.camera.enabled) {
+  // initialize camera
+  console.log('initializing camera');
+  camera.init(config.camera.imagepath);
+
+  // take pictures
+  setInterval(function(){
+    camera.takepicture();
+  }, config.camera.intervalsecs * 1000);
+}
 
 
 // read CPU temp
-setInterval(function(){
-  cputemp = utils.cpuTemp();
-}, 5000);
+if (config.cputempsensor.enabled) {
+  setInterval(function(){
+    cputemp = utils.cpuTemp();
+  }, config.cputempsensor.intervalsecs * 1000);
+}
 
 // read ambient temp
-setInterval(function(){
-  ambtemp = utils.w1Temp('28-01156206bdff');
-}, 5000);
-
+if (config.ambtempsensor.enabled) {
+  setInterval(function(){
+    ambtemp = utils.w1Temp(config.ambtempsensor.w1deviceid);
+  }, config.ambtempsensor.intervalsecs * 1000);
+}
 
 // get garage door position and keep updated
 setInterval( function () {
@@ -65,7 +71,7 @@ setInterval( function () {
     }
     updatestatus(value);
   });
-},1000);
+}, config.garagedoorpositionsensor.intervalsecs * 1000);
 
 function updatestatus(value) {
   garagedoorrec.asofdate = new Date();
@@ -101,7 +107,7 @@ function getresponse() {
 }
 
 //app.use(morgan('combined'));
-app.use('/',utils.basicAuth(config.username, config.password));
+app.use('/',utils.basicAuth(config.www.username, config.www.password));
 
 app.use(express.static(__dirname + "/www", { maxAge: 0 } ));
 
@@ -176,8 +182,8 @@ app.use(function(err, req, res, next) {
   }
 });
 
-//app.listen(3000);
-io.listen(app.listen(3000));
-console.log('App Server running at port 3000');
+//app.listen(config.www.port);
+io.listen(app.listen(config.www.port));
+console.log('App Server running at port ' + config.www.port);
 
 

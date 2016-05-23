@@ -1,4 +1,24 @@
 {
-  "username" : "username",
-  "password" : "secret"
+  "www" : {
+    "username": "username",
+    "password": "secret",
+    "port": "3000"
+  },
+  "camera": {
+    "enabled": false,
+    "intervalsecs": 10,
+    "imagepath": "/home/pi/garagepi/www/images"
+  },
+  "cputempsensor": {
+    "enabled": true,
+    "intervalsecs": 5
+  },
+  "ambtempsensor": {
+    "enabled": true,
+    "w1deviceid": "28-0115622415ff",
+    "intervalsecs": 5
+  },
+  "garagedoorpositionsensor": {
+    "intervalsecs": 1
+  }
 }

@@ -1,52 +1,41 @@
-var gpio = require('pi-gpio');
+var exec = require('child_process').exec;
 
-var buttonpin = 3; // PIN 3 = GPIO2
-var positionpin = 10; // PIN 10 - GPIO15
+var buttongpio = 2; // PIN 3 = GPIO2
+var positiongpio = 15; // PIN 10 - GPIO15
 
 var garagedoor = {
 
   init:        function () {
                  // initialize GPIO ports
-                 console.log('opening GPIO port on pin ' + positionpin + ' as input');
-                 gpio.close(positionpin); // close it, in case it was left open previously
-                 gpio.open(positionpin, "input", function (err) {
-                   if (err) {
-                     gpio.close(positionpin);
-                     throw err;
-                   }
-                 });
+                 console.log('opening GPIO port ' + positiongpio + ' as input');
+                 exec('gpio -g mode ' + positiongpio + ' in');
 
-                 console.log('opening GPIO port on pin ' + buttonpin + ' as output');
-                 gpio.close(buttonpin); // close it, in case it was left open previously
-                    gpio.open(buttonpin, "high", function (err) {  // direction of "high" is output defaulted to 1 (high)
-                 if (err) {
-                     gpio.close(buttonpin);
-                     throw err;
-                   }
-                 });
+                 console.log('opening GPIO port on pin ' + buttongpio + ' as output');
+                 exec('gpio -g mode ' + buttongpio + ' out');
   },
 
   getpos:      function (callback) {
-                 gpio.read(positionpin, function (err, value) {
-                   if (err) {
-                     callback(err);
-                     return;
+                 exec('gpio -g read ' + positiongpio, (error, stdout, stderr) => {
+                   if (error) {
+                     console.error('gpio read exec error: ${error}');
+                     callback(error);
                    }
-                   callback(null,value);
-                   return;
+                   var pos = stdout.substring(0,1);
+                   //console.log(`stdout: ${stdout} ${pos}`);
+                   callback(null,pos);
+                   //console.log(`stderr: ${stderr}`);
                  });
+                 return;
   },
 
   pressbutton: function () {
-                    gpio.write(buttonpin,0);
+                    exec('gpio -g write ' + buttongpio + ' 1');
                     setTimeout(function() {
-                      gpio.write(buttonpin,1);
+                      exec('gpio -g write ' + buttongpio + ' 0');
                     }, 250);
   },
 
   close:       function() {
-                 gpio.close(positionpin);
-                 gpio.close(buttonpin);
   }
 
 };
