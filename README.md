@@ -159,7 +159,7 @@ Add ```dtoverlay=w1-gpio``` to the /boot/config.txt.
 
 Reboot with ```sudo reboot```.
 
-With the sensor connected to GPIO 4, confirm it is recognized by going to the w1 devices folder, seeing a device listed starting with 28 (usually), and checking the w1_slave file for a reading.  My ID was 28-01156206bdff, so yours will be different.
+With the DS18B20 sensor connected to GPIO 4, 3v and a ground pin, confirm it is recognized by going to the w1 devices folder, seeing a device listed starting with 28 (usually), and checking the w1_slave file for a reading.  My ID was 28-01156206bdff, so yours will be different.
 
 ```
 pi@garagepi ~ $ cd /sys/bus/w1/devices
@@ -172,27 +172,29 @@ pi@garagepi /sys/bus/w1/devices/28-01156206bdff $ cat w1_slave
 pi@garagepi /sys/bus/w1/devices/28-01156206bdff $
 ```
 
-Make sure to update the garageapi.js file to have your ID.  (NOTE: in the future this setting should be moved into config.js)
+You will want to make a note of this ID to update the w1deviceid in the config.json file later, when we pull the source code down and start to set it up.
 
 ```
-// read ambient temp
-setInterval(function(){
-  ambtemp = utils.w1Temp('28-01156206bdff');
-}, 5000);
+  "ambtempsensor": {
+    "enabled": true,
+    "w1deviceid": "28-01156206bdff",
+    "intervalsecs": 5
+  },
 ```
 
 ###Setup Camera and Set TimeZone
 Use ```sudo raspi-config``` to enable the camera and timezone.  A menu will come up where you will see the options.  It is pretty straight forward, but check [camera more info](https://www.raspberrypi.org/documentation/configuration/camera.md) and [timezone more info](https://www.raspberrypi.org/documentation/configuration/raspi-config.md).
 
+If you do not have the camera, it can be disabled in config.json until you attain one.
+
 ###Setup WiringPi
-[WiringPi](http://wiringpi.com/) is a command-line utility to operate the GPIO pins.  It will be used to check the position of the garage door and operate the relay for the garage door opener.  Install it as follows.
+[WiringPi](http://wiringpi.com/) is a command-line utility to operate the GPIO pins.  It will be used to check the position of the garage door and operate the relay for the garage door opener.  It is also used by the code to read/write the GPIO pins.  Install it as follows.
 ```
 sudo apt-get install wiringpi
 ```
-NOTE:  this may be optional, as it appears the wiring-pi node module builds and installs this too.
 
 ###Setup Garage Door Position Sensor
-With the reed switch connected to GPIO15 and a ground pin, here's how to test the operation.  ```gpio``` is a command-line utility that we'll use to test.
+With the reed switch connected to GPIO15 and a ground pin, here's how to test the operation.  ```gpio``` is a command-line utility that we'll use to test, which was installed in the previous step.
 
 To set GPIO15 as an input pin, use ```gpio -g mode 15 in```.
 
@@ -221,13 +223,14 @@ gpio -g write 2 0
 The following will install the other dependencies needed.
 
 ####Install node
-Node can be installled from the default repositories, but it is older and runs by the command ```nodejs```, which is bothersome.  This needs to be improved to install the latest node and is a bit of a mess right now, but these instructions get you going.
+Node can be installled from the default repositories, but it is older and runs by the command ```nodejs```, which is bothersome.  This needs to be improved to install the latest node and is a bit of a mess right now, but these instructions get you going by pulling node from the Node.js site itself.
 
 Go to ```https://nodejs.org/download/release/latest/``` and find the tar.gz file for ARMv6.  Here are the commands for the latest at the time of writing this.
 ```
 wget https://nodejs.org/download/release/latest/node-v6.2.0-linux-armv6l.tar.gz
 sudo tar xf node-v6.2.0-linux-armv6l.tar.gz --strip-components=1 -C /usr/local
 ```
+Substitute ```node-v6.2.0-linux-armv6l.tar.gz``` for whatever latest distribution you find there for ARMv6.
 
 ####Install Git
 Git will also be needed.
@@ -235,25 +238,14 @@ Git will also be needed.
 sudo apt-get install git
 ```
 
-####Install GPIO-Admin
-[gpio-admin](https://github.com/quick2wire/quick2wire-gpio-admin) allows for non-root access to the GPIO pins, and is a dependency for the NPM package pi-gpio.
-
-Here's the commands to download, build and install:
-```
-git clone git://github.com/quick2wire/quick2wire-gpio-admin.git
-cd quick2wire-gpio-admin
-make
-sudo make install
-sudo adduser $USER gpio
-```
-
 ###Setup GaragePi
-Grab garagepi from git using ```git clone https://github.com/scwissel/garagepi.git garagepi```.  Go into the garagepi folder and run ```npm install``` to install and dependent node packages.
+Grab garagepi (this code) from git using ```git clone https://github.com/scwissel/garagepi.git garagepi```.  Go into the garagepi folder and run ```npm install``` to install any dependent node packages.
 
-Make sure to update the following:
+Make sure to update ```config.json``` the following:
 
-* Temp sensor ID for your DS18B20 in garageapi.js.
-* Your chosen username and password in config.js.
+* Your chosen username and password.
+* Temp sensor ID for your DS18B20.
+* Disable the camera, if you don't want to see it complain when it tries to take still pictures.
 
 Start garagepi with ```node garageapi.js```.
 
@@ -262,7 +254,5 @@ Access the web application by browsing to the IP address of your Raspberry Pi on
 ##To Do
 
 * Terminate HTTPS at the Raspberry Pi to reduce complexity of setup.
-* Move hard-coded values into configuration, such as tempurature sensor ID and GPIO pins used.
 * Clean-up dependencies.
-* More detailed instructions on installation of OS, this and dependencies, networking, and wiring.
 * Add support for second garage door.
