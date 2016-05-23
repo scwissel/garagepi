@@ -182,6 +182,9 @@ You will want to make a note of this ID to update the w1deviceid in the config.j
   },
 ```
 
+###Setting DS18B20 Accuracy
+By default, the [DS18B20 sensor](https://datasheets.maximintegrated.com/en/ds/DS18B20.pdf) is 9bit accuracy.  Check out this [answer on stackoverflow](http://raspberrypi.stackexchange.com/questions/14278/how-to-change-ds18b20-reading-resolution/43604#43604) on how to change it to 12bit accuracy.  Note that this does increase the read time, which should not be an issue for this project.
+
 ###Setup Camera and Set TimeZone
 Use ```sudo raspi-config``` to enable the camera and timezone.  A menu will come up where you will see the options.  It is pretty straight forward, but check [camera more info](https://www.raspberrypi.org/documentation/configuration/camera.md) and [timezone more info](https://www.raspberrypi.org/documentation/configuration/raspi-config.md).
 
