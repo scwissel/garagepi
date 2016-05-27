@@ -1,1 +1,1 @@
-node garageapi.js >> /home/pi/apps/garageapi.log &
+node garageapi.js >> /home/pi/garagepi/garageapi.log &
