@@ -254,6 +254,12 @@ Start garagepi with ```node garageapi.js```.
 
 Access the web application by browsing to the IP address of your Raspberry Pi on port 3000.  For example, if your Raspberry Pi has an IP address of 192.168.1.10, then use the following in your laptop or PC browser while connected to the same WiFi network as the Raspberry Pi: ```http://192.168.1.10:3000```.  You should get prompted to login with your username and password you setup in config.js and see the main page.
 
+To have GaragePi automatically start when on bootup, add the following to /etc/rc.local just before the last line containing ```exit 0```.
+
+```
+su -l pi -c '/home/pi/garagepi/runbg.sh'
+```
+
 ##To Do
 
 * Terminate HTTPS at the Raspberry Pi to reduce complexity of setup.
