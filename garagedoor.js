@@ -11,6 +11,7 @@ var garagedoor = {
                  exec('gpio -g mode ' + positiongpio + ' in');
 
                  console.log('opening GPIO port on pin ' + buttongpio + ' as output');
+                 exec('gpio -g write ' + buttongpio + ' 1');
                  exec('gpio -g mode ' + buttongpio + ' out');
   },
 
@@ -29,9 +30,9 @@ var garagedoor = {
   },
 
   pressbutton: function () {
-                    exec('gpio -g write ' + buttongpio + ' 1');
+                    exec('gpio -g write ' + buttongpio + ' 0');
                     setTimeout(function() {
-                      exec('gpio -g write ' + buttongpio + ' 0');
+                      exec('gpio -g write ' + buttongpio + ' 1');
                     }, 250);
   },
 
